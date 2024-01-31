@@ -1,7 +1,7 @@
-package com.example.movieapps.data.network.module
+package com.example.movieapps.module
 
 import com.example.movieapps.BuildConfig
-import com.example.movieapps.data.MovieAPI
+import com.example.movieapps.data.remote.MovieAPI
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -18,7 +18,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    private const val BASE_URL = "https://api.themoviedb.org/3"
+    private const val BASE_URL = "https://api.themoviedb.org/3/"
 
     @Singleton
     @Provides
