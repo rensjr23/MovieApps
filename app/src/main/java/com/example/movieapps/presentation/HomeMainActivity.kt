@@ -2,46 +2,35 @@ package com.example.movieapps.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
 import com.example.movieapps.R
 import com.example.movieapps.databinding.HomeMainActivityBinding
-import com.example.movieapps.presentation.view.fragment.HomeFragment
-import com.example.movieapps.presentation.view.fragment.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeMainActivity : AppCompatActivity() {
     private lateinit var binding: HomeMainActivityBinding
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = HomeMainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.bottomNavigation.setOnNavigationItemSelectedListener(onNavigateItemSelectedListener)
-        if (savedInstanceState == null) {
-            binding.bottomNavigation.selectedItemId =
-                R.id.navigationHome
-        }
+
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+
+        setupBottomNavigation()
     }
 
-    private val onNavigateItemSelectedListener =
-        BottomNavigationView.OnNavigationItemSelectedListener {item ->
-        when(item.itemId){
-            R.id.navigationHome->{
-                replaceFragment(HomeFragment())
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigationSearch->{
-                replaceFragment(SearchFragment())
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-            false
+    private fun setupBottomNavigation() {
+        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        NavigationUI.setupWithNavController(bottomNavigation, navController)
     }
 
-    private fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmenContainer, fragment)
-            .commit()
+    override fun onSupportNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(navController, null)
     }
 }

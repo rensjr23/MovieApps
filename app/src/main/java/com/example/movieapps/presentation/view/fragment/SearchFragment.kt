@@ -1,13 +1,15 @@
 package com.example.movieapps.presentation.view.fragment
 
+import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.example.movieapps.databinding.FragmentSearchBinding
 import com.example.movieapps.presentation.base.BaseFragment
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class SearchFragment: BaseFragment<FragmentSearchBinding>() {
+
+class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -18,4 +20,6 @@ class SearchFragment: BaseFragment<FragmentSearchBinding>() {
     override fun setupView() {
 
     }
+
+
 }

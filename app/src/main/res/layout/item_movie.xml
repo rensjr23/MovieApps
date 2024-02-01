@@ -15,11 +15,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:textAlignment="center"
         android:id="@+id/tvYear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="4dp"
         android:text="2023"
+        android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/ivMovie" />
 
@@ -29,6 +31,8 @@
         android:layout_height="wrap_content"
         android:padding="4dp"
         android:text="Avanger"
+        android:textAlignment="center"
+        android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/tvYear" />
 

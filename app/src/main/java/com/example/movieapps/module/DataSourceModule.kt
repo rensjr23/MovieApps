@@ -17,8 +17,4 @@ object DataSourceModule {
     fun provideGenreRemoteDataSource(movieAPI: MovieAPI): RemoteDataSource =
         RemoteDataSourceImpl(movieAPI)
 
-    @Provides
-    @Singleton
-    fun provideListMovieRemoteDataSource(movieAPI: MovieAPI): RemoteDataSource=
-        RemoteDataSourceImpl(movieAPI)
 }

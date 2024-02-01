@@ -16,9 +16,5 @@ object RepositoryModule {
     @Singleton
     fun provideGenreRepository(datasource: RemoteDataSource): Repository =
         RepositoryImpl(datasource)
-    @Provides
-    @Singleton
-    fun provideListMovieRepository(datasource: RemoteDataSource): Repository =
-        RepositoryImpl(datasource)
 
 }

@@ -3,8 +3,8 @@ package com.example.movieapps.domain.usecase
 import com.example.movieapps.domain.repository.Repository
 import javax.inject.Inject
 
-class GetListMovieUseCase @Inject constructor(
+class GetMovieDetailsUseCase @Inject constructor(
     private val repository: Repository
-) {
-    suspend operator fun invoke(genre: Int)=repository.getListMovie(genre)
+){
+    suspend operator fun invoke(movieId: Int)=repository.getMovieDetails(movieId)
 }
