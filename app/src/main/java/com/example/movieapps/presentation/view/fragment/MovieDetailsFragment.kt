@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModel
 import com.airbnb.lottie.LottieDrawable
 import com.bumptech.glide.Glide
 import com.example.movieapps.R
+import com.example.movieapps.data.dto.CastItem
 import com.example.movieapps.data.dto.MovieDetailsResponse
 import com.example.movieapps.databinding.FragmentMovieDetailsBinding
+import com.example.movieapps.presentation.adapter.ActorMovieAdapter
 import com.example.movieapps.presentation.base.BaseFragment
 import com.example.movieapps.presentation.view.viewmodel.MovieDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +23,7 @@ import kotlin.math.pow
 @AndroidEntryPoint
 class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
     private val viewModel: MovieDetailsViewModel by viewModels()
+    private var _actorMovieAdapter: ActorMovieAdapter? = null
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -30,7 +33,7 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
 
     override fun setupView() {
         viewModel.apply {
-            loading.observe(viewLifecycleOwner){
+            loading.observe(viewLifecycleOwner) {
                 setLoading(it)
             }
             getPassedGenreId()?.let {
@@ -38,17 +41,29 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
             }
         }
 
+
         observeViewModel()
     }
-    private fun observeViewModel(){
-        viewModel.movieDetailsData.observe(viewLifecycleOwner){
+
+    private fun observeViewModel() {
+        viewModel.movieDetailsData.observe(viewLifecycleOwner) {
             setupMovieDetails(it)
         }
+        viewModel.actorMovieData.observe(viewLifecycleOwner) {
+            setupViewActor(it)
+        }
     }
+
     private fun getPassedGenreId(): Int? {
         return arguments?.getInt("movieId")
     }
-    private fun setupMovieDetails(data: MovieDetailsResponse){
+
+    private fun setupViewActor(data: List<CastItem>) {
+        _actorMovieAdapter = ActorMovieAdapter(requireContext(), data)
+        binding.rvMovieImages.adapter = _actorMovieAdapter
+    }
+
+    private fun setupMovieDetails(data: MovieDetailsResponse) {
         binding.tvMovieTitle.text = data.title
         binding.tvDuration.text = "${data.runtime} minutes"
         binding.tvTitle.text = data.originalTitle
@@ -73,6 +88,7 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
             .error(R.drawable.ic_error)
             .into(binding.ivImage)
     }
+
     private fun numberFormatter(count: Long): String {
         if (count < 1000) return "" + count
         val exp = (ln(count.toDouble()) / ln(1000.0)).toInt()
@@ -87,6 +103,7 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
         val date = incomingDateFormat.parse(data)
         return showedDateFormat.format(date)
     }
+
     private fun setLoading(isLoading: Boolean) {
         binding.loSplash.apply {
             visibility = if (isLoading) View.VISIBLE else View.GONE
