@@ -4,6 +4,7 @@ import com.example.movieapps.data.dto.ActorMovieResponse
 import com.example.movieapps.data.dto.Genres
 import com.example.movieapps.data.dto.MovieDetailsResponse
 import com.example.movieapps.data.dto.Movies
+import com.example.movieapps.data.dto.ReviewResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -31,4 +32,11 @@ interface MovieAPI {
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String = "a0d35c93cf4be4650e17892fd16ab7a8"
     ): Response<ActorMovieResponse>
+    @GET("movie/{movie_id}/reviews")
+    suspend fun getReviewMovie(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = "a0d35c93cf4be4650e17892fd16ab7a8"
+    ): Response<ReviewResponse>
+
+
 }

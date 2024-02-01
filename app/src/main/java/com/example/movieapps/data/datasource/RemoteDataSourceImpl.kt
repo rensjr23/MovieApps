@@ -5,6 +5,7 @@ import com.example.movieapps.data.remote.MovieAPI
 import com.example.movieapps.data.dto.Genres
 import com.example.movieapps.data.dto.MovieDetailsResponse
 import com.example.movieapps.data.dto.Movies
+import com.example.movieapps.data.dto.ReviewResponse
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -24,5 +25,9 @@ class RemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getActorMovie(movieId: Int): Response<ActorMovieResponse> {
         return api.getActorMovie(movieId)
+    }
+
+    override suspend fun getReviewMovie(movieId: Int): Response<ReviewResponse> {
+        return api.getReviewMovie(movieId)
     }
 }

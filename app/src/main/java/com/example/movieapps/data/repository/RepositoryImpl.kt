@@ -6,6 +6,7 @@ import com.example.movieapps.domain.repository.Repository
 import com.example.movieapps.data.dto.Genres
 import com.example.movieapps.data.dto.MovieDetailsResponse
 import com.example.movieapps.data.dto.Movies
+import com.example.movieapps.data.dto.ReviewResponse
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -26,5 +27,9 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun getActorMovie(movieId: Int): Response<ActorMovieResponse> {
         return remoteDataSource.getActorMovie(movieId)
+    }
+
+    override suspend fun getReviewMovie(movieId: Int): Response<ReviewResponse> {
+        return remoteDataSource.getReviewMovie(movieId)
     }
 }

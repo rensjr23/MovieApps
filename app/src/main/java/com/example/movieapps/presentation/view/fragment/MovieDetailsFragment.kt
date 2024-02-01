@@ -10,8 +10,10 @@ import com.bumptech.glide.Glide
 import com.example.movieapps.R
 import com.example.movieapps.data.dto.CastItem
 import com.example.movieapps.data.dto.MovieDetailsResponse
+import com.example.movieapps.data.dto.ResultsItem
 import com.example.movieapps.databinding.FragmentMovieDetailsBinding
 import com.example.movieapps.presentation.adapter.ActorMovieAdapter
+import com.example.movieapps.presentation.adapter.ReviewMovieAdapter
 import com.example.movieapps.presentation.base.BaseFragment
 import com.example.movieapps.presentation.view.viewmodel.MovieDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +26,7 @@ import kotlin.math.pow
 class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
     private val viewModel: MovieDetailsViewModel by viewModels()
     private var _actorMovieAdapter: ActorMovieAdapter? = null
+    private var _reviewMovieAdapter: ReviewMovieAdapter? = null
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -52,6 +55,9 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
         viewModel.actorMovieData.observe(viewLifecycleOwner) {
             setupViewActor(it)
         }
+        viewModel.reviewMovieData.observe(viewLifecycleOwner){
+            setupReview(it)
+        }
     }
 
     private fun getPassedGenreId(): Int? {
@@ -61,6 +67,10 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
     private fun setupViewActor(data: List<CastItem>) {
         _actorMovieAdapter = ActorMovieAdapter(requireContext(), data)
         binding.rvMovieImages.adapter = _actorMovieAdapter
+    }
+    private fun setupReview(data: List<ResultsItem>){
+        _reviewMovieAdapter = ReviewMovieAdapter(requireContext(), data)
+        binding.rvReview.adapter = _reviewMovieAdapter
     }
 
     private fun setupMovieDetails(data: MovieDetailsResponse) {

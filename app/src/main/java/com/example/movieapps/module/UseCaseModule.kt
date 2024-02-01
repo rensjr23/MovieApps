@@ -4,6 +4,7 @@ import com.example.movieapps.domain.repository.Repository
 import com.example.movieapps.domain.usecase.GetListGenreUseCase
 import com.example.movieapps.domain.usecase.GetListMovieUseCase
 import com.example.movieapps.domain.usecase.GetMovieDetailsUseCase
+import com.example.movieapps.domain.usecase.GetReviewMovieUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,4 +27,8 @@ object UseCaseModule {
     @Singleton
     fun provideGetMovieDetailsUseCase(repository: Repository)=
         GetMovieDetailsUseCase(repository)
+    @Provides
+    @Singleton
+    fun provideGetReviewMovieUseCase(repository: Repository)=
+        GetReviewMovieUseCase(repository)
 }

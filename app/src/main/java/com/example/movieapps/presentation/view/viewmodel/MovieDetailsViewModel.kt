@@ -7,8 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.movieapps.data.dto.CastItem
 import com.example.movieapps.data.dto.Genre
 import com.example.movieapps.data.dto.MovieDetailsResponse
+import com.example.movieapps.data.dto.ResultsItem
 import com.example.movieapps.domain.usecase.GetActorMovieUseCase
 import com.example.movieapps.domain.usecase.GetMovieDetailsUseCase
+import com.example.movieapps.domain.usecase.GetReviewMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
     private val getMovieDetailsUseCase: GetMovieDetailsUseCase,
-    private val getActorMovieUseCase: GetActorMovieUseCase
+    private val getActorMovieUseCase: GetActorMovieUseCase,
+    private val getReviewMovieUseCase: GetReviewMovieUseCase
 ) : ViewModel() {
     private val _movieDetailsData = MutableLiveData<MovieDetailsResponse>()
     val movieDetailsData: LiveData<MovieDetailsResponse>
@@ -24,6 +27,9 @@ class MovieDetailsViewModel @Inject constructor(
     private val _actorMovieData = MutableLiveData<List<CastItem>>()
     val actorMovieData: LiveData<List<CastItem>>
         get() = _actorMovieData
+    private val _reviewMovieData = MutableLiveData<List<ResultsItem>>()
+    val reviewMovieData: LiveData<List<ResultsItem>>
+        get() = _reviewMovieData
 
     private val _isLoading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean>
@@ -37,9 +43,13 @@ class MovieDetailsViewModel @Inject constructor(
         _isLoading.postValue(true)
         val resDetails = getMovieDetailsUseCase(movieId)
         val resActor = getActorMovieUseCase(movieId)
+        val resReview = getReviewMovieUseCase(movieId)
 
         if (resActor.isSuccessful && resActor.body()?.cast != null){
             _actorMovieData.postValue(resActor.body()!!.cast?.filterNotNull())
+        }
+        if (resReview.isSuccessful&& resReview.body()?.results!=null){
+            _reviewMovieData.postValue(resReview.body()!!.results?.filterNotNull())
         }
 
         if (resDetails.isSuccessful && resDetails.body()?.genres != null) {
