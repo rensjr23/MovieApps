@@ -5,6 +5,7 @@ import com.example.movieapps.data.dto.Genres
 import com.example.movieapps.data.dto.MovieDetailsResponse
 import com.example.movieapps.data.dto.Movies
 import com.example.movieapps.data.dto.ReviewResponse
+import com.example.movieapps.data.dto.VideoResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -21,6 +22,7 @@ interface MovieAPI {
         @Query("genre") genre: Int,
         @Query("api_key") apiKey: String = "5eb84100db044f614af0fed6ee89eb95"
     ): Response<Movies>
+
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
         @Path("movie_id") movieId: Int,
@@ -30,13 +32,20 @@ interface MovieAPI {
     @GET("movie/{movie_id}/credits")
     suspend fun getActorMovie(
         @Path("movie_id") movieId: Int,
-        @Query("api_key") apiKey: String = "a0d35c93cf4be4650e17892fd16ab7a8"
+        @Query("api_key") apiKey: String = "5eb84100db044f614af0fed6ee89eb95"
     ): Response<ActorMovieResponse>
+
     @GET("movie/{movie_id}/reviews")
     suspend fun getReviewMovie(
         @Path("movie_id") movieId: Int,
-        @Query("api_key") apiKey: String = "a0d35c93cf4be4650e17892fd16ab7a8"
+        @Query("api_key") apiKey: String = "5eb84100db044f614af0fed6ee89eb95"
     ): Response<ReviewResponse>
+
+    @GET("movie/{movie_id}/videos")
+    suspend fun getVideosMovie(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = "5eb84100db044f614af0fed6ee89eb95"
+    ): Response<VideoResponse>
 
 
 }

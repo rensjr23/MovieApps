@@ -3,8 +3,10 @@ package com.example.movieapps.presentation.view.fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
+import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieDrawable
 import com.bumptech.glide.Glide
 import com.example.movieapps.R
@@ -43,8 +45,6 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
                 setMovieDetailsData(it)
             }
         }
-
-
         observeViewModel()
     }
 
@@ -55,7 +55,7 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
         viewModel.actorMovieData.observe(viewLifecycleOwner) {
             setupViewActor(it)
         }
-        viewModel.reviewMovieData.observe(viewLifecycleOwner){
+        viewModel.reviewMovieData.observe(viewLifecycleOwner) {
             setupReview(it)
         }
     }
@@ -68,7 +68,8 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
         _actorMovieAdapter = ActorMovieAdapter(requireContext(), data)
         binding.rvMovieImages.adapter = _actorMovieAdapter
     }
-    private fun setupReview(data: List<ResultsItem>){
+
+    private fun setupReview(data: List<ResultsItem>) {
         _reviewMovieAdapter = ReviewMovieAdapter(requireContext(), data)
         binding.rvReview.adapter = _reviewMovieAdapter
     }
@@ -97,6 +98,16 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
         Glide.with(this).load("https://image.tmdb.org/t/p/w500/${data.posterPath}")
             .error(R.drawable.ic_error)
             .into(binding.ivImage)
+        binding.btnPlay.setOnClickListener {
+            val bundle = bundleOf("id" to data.id)
+            val action = MovieDetailsFragmentDirections.actionMovieDetailsFragmentToVideoFragment().actionId
+            findNavController().navigate(action, bundle)
+        }
+        binding.ivPlay.setOnClickListener {
+            val bundle = bundleOf("id" to data.id)
+            val action = MovieDetailsFragmentDirections.actionMovieDetailsFragmentToVideoFragment().actionId
+            findNavController().navigate(action, bundle)
+        }
     }
 
     private fun numberFormatter(count: Long): String {
