@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="12dp"
     android:padding="4dp"
     app:cardCornerRadius="8dp">
@@ -16,25 +16,30 @@
             android:id="@+id/ivReview"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_margin="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
-            android:textStyle="bold"
             android:id="@+id/tvTitleReview"
-            android:layout_margin="8dp"
-            tools:text="Rens Junior Sibarani"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/ivReview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/ivReview"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Rens Junior Sibarani" />
+
         <TextView
             android:id="@+id/tvReview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitleReview"
-            tools:text="dsfdfsdfdsfdsfdsfds"
             app:layout_constraintStart_toEndOf="@+id/ivReview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleReview"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="4dp"
+            tools:text="dsfdfsdfdsfdsfdsfdjhfjskhfjkdhfjkshsdfsjfhkshfksfhss" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

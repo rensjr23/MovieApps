@@ -6,21 +6,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movieapps.R
-import com.example.movieapps.data.dto.Genre
-import com.example.movieapps.data.dto.Movie
+import com.example.movieapps.data.dto.SearchItem
 import com.example.movieapps.databinding.ItemMovieBinding
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
-class MovieAdapter(
+class SearchMovieAdapter(
     private val context: Context,
-    private val listMovie: List<Movie>,
+    private val listSearch: List<SearchItem>,
     private val onClickNav: (movieId: Int) -> Unit
-) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
-
-    inner class MovieViewHolder(val binding: ItemMovieBinding) :
+) : RecyclerView.Adapter<SearchMovieAdapter.SearchMovieViewHolder>() {
+    inner class SearchMovieViewHolder(val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Movie) {
+        fun bind(data: SearchItem) {
             Glide.with(context)
                 .load("https://image.tmdb.org/t/p/w500/${data.posterPath}")
                 .error(R.drawable.ic_error)
@@ -32,7 +30,6 @@ class MovieAdapter(
             }
             val decimalFormat = DecimalFormat("#.#")
             binding.tvRating.text = "${decimalFormat.format(data.voteAverage)}/10"
-
         }
     }
 
@@ -43,19 +40,19 @@ class MovieAdapter(
         return yearFormat.format(date)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchMovieViewHolder {
+        return SearchMovieViewHolder(
             ItemMovieBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ),
+            )
         )
     }
 
-    override fun getItemCount(): Int = listMovie.size
+    override fun getItemCount(): Int = listSearch.size
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(listMovie[position])
+    override fun onBindViewHolder(holder: SearchMovieViewHolder, position: Int) {
+        holder.bind(listSearch[position])
     }
 }

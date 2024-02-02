@@ -5,6 +5,7 @@ import com.example.movieapps.data.dto.Genres
 import com.example.movieapps.data.dto.MovieDetailsResponse
 import com.example.movieapps.data.dto.Movies
 import com.example.movieapps.data.dto.ReviewResponse
+import com.example.movieapps.data.dto.SearchResponse
 import com.example.movieapps.data.dto.VideoResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -47,5 +48,10 @@ interface MovieAPI {
         @Query("api_key") apiKey: String = "5eb84100db044f614af0fed6ee89eb95"
     ): Response<VideoResponse>
 
+    @GET("search/movie")
+    suspend fun getSearchMovie(
+        @Query("query") query: String,
+        @Query("api_key") apiKey: String = "5eb84100db044f614af0fed6ee89eb95"
+    ): Response<SearchResponse>
 
 }

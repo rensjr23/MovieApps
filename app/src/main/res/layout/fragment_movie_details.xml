@@ -240,5 +240,4 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp" />
 
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
