@@ -1,12 +1,11 @@
 package com.example.movieapps.presentation.view.fragment
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowId
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieDrawable
 import com.example.movieapps.R
@@ -29,13 +28,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun setupView() {
-        viewModel.apply {
-            loading.observe(viewLifecycleOwner) {
-                setLoading(it)
-            }
-            setGenreData()
-        }
+        setupSuccess()
+        setupError()
         observeViewModel()
+        binding.btnReload.setOnClickListener {
+//            Log.d("Rens", "Button")
+            binding.btnReload.visibility = View.GONE
+            setupView()
+        }
     }
 
     private fun observeViewModel() {
@@ -51,6 +51,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             findNavController().navigate(action, bundle)
         }
         binding.componentGenre.gridGenre.adapter = _genreAdapter
+    }
+    private fun setupSuccess(){
+        viewModel.apply {
+            loading.observe(viewLifecycleOwner) {
+                setLoading(it)
+            }
+            setGenreData()
+        }
+    }
+    private fun setupError(){
+        viewModel.Error.observe(viewLifecycleOwner){
+            if (it){
+                binding.btnReload.visibility = View.VISIBLE
+                binding.componentGenre.gridGenre.visibility = View.GONE
+            }else{
+                binding.btnReload.visibility = View.GONE
+                binding.componentGenre.gridGenre.visibility = View.VISIBLE
+            }
+        }
     }
 
 

@@ -22,18 +22,21 @@ class MovieDetailsViewModel @Inject constructor(
     private val getReviewMovieUseCase: GetReviewMovieUseCase
 ) : ViewModel() {
     private val _movieDetailsData = MutableLiveData<MovieDetailsResponse>()
+    private val _actorMovieData = MutableLiveData<List<CastItem>>()
+    private val _reviewMovieData = MutableLiveData<List<ResultsItem>>()
+    private val _isLoading = MutableLiveData<Boolean>()
+    private val _isError = MutableLiveData<Boolean>()
     val movieDetailsData: LiveData<MovieDetailsResponse>
         get() = _movieDetailsData
-    private val _actorMovieData = MutableLiveData<List<CastItem>>()
     val actorMovieData: LiveData<List<CastItem>>
         get() = _actorMovieData
-    private val _reviewMovieData = MutableLiveData<List<ResultsItem>>()
     val reviewMovieData: LiveData<List<ResultsItem>>
         get() = _reviewMovieData
 
-    private val _isLoading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean>
         get() = _isLoading
+    val Error: LiveData<Boolean>
+        get() = _isError
 
     init {
         _isLoading.postValue(true)
@@ -41,17 +44,21 @@ class MovieDetailsViewModel @Inject constructor(
 
     fun setMovieDetailsData(movieId: Int) = viewModelScope.launch {
         _isLoading.postValue(true)
+
         val resDetails = getMovieDetailsUseCase(movieId)
         val resActor = getActorMovieUseCase(movieId)
         val resReview = getReviewMovieUseCase(movieId)
 
-        if (resActor.isSuccessful && resActor.body()?.cast != null){
-            _actorMovieData.postValue(resActor.body()!!.cast?.filterNotNull())
+        if (resActor.isSuccessful && resActor.body()?.cast != null) {
+            resActor.body()?.cast?.let {
+                _actorMovieData.postValue(it.filterNotNull())
+            }
         }
-        if (resReview.isSuccessful&& resReview.body()?.results!=null){
-            _reviewMovieData.postValue(resReview.body()!!.results?.filterNotNull())
+        if (resReview.isSuccessful && resReview.body()?.results != null) {
+            resReview.body()?.results?.let {
+                _reviewMovieData.postValue(it.filterNotNull())
+            }
         }
-
         if (resDetails.isSuccessful && resDetails.body()?.genres != null) {
             _movieDetailsData.postValue(resDetails.body())
         }

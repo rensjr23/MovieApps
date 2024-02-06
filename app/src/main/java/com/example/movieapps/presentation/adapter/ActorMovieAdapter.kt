@@ -11,13 +11,12 @@ import com.example.movieapps.data.dto.CastItem
 import com.example.movieapps.databinding.ItemImageBinding
 
 class ActorMovieAdapter(
-    private val context: Context,
     private val listActor: List<CastItem>
 ) : RecyclerView.Adapter<ActorMovieAdapter.ActorMovieViewHolder>() {
     inner class ActorMovieViewHolder(val binding: ItemImageBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: CastItem) {
-            Glide.with(context)
+            Glide.with(itemView)
                 .load("https://image.tmdb.org/t/p/w500/"+data.profilePath)
                 .error(R.drawable.ic_error)
                 .into(binding.ivImage)

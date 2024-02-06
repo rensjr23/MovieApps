@@ -54,7 +54,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     private fun setupViewSearchMovie(data: List<SearchItem>) {
-        _searchMovieAdapter = SearchMovieAdapter(requireContext(), data) { id ->
+        _searchMovieAdapter = SearchMovieAdapter(data) { id ->
             val bundle = bundleOf("movieId" to id)
             val action =
                 SearchFragmentDirections.actionSearchFragmentToMovieDetailsFragment().actionId

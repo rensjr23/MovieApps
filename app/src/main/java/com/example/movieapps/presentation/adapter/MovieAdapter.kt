@@ -13,7 +13,6 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
 class MovieAdapter(
-    private val context: Context,
     private val listMovie: List<Movie>,
     private val onClickNav: (movieId: Int) -> Unit
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
@@ -21,7 +20,7 @@ class MovieAdapter(
     inner class MovieViewHolder(val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Movie) {
-            Glide.with(context)
+            Glide.with(itemView)
                 .load("https://image.tmdb.org/t/p/w500/${data.posterPath}")
                 .error(R.drawable.ic_error)
                 .into(binding.ivMovie)

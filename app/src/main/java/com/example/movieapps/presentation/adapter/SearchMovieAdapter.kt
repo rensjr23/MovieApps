@@ -12,14 +12,13 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
 class SearchMovieAdapter(
-    private val context: Context,
     private val listSearch: List<SearchItem>,
     private val onClickNav: (movieId: Int) -> Unit
 ) : RecyclerView.Adapter<SearchMovieAdapter.SearchMovieViewHolder>() {
     inner class SearchMovieViewHolder(val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: SearchItem) {
-            Glide.with(context)
+            Glide.with(itemView)
                 .load("https://image.tmdb.org/t/p/w500/${data.posterPath}")
                 .error(R.drawable.ic_error)
                 .into(binding.ivMovie)

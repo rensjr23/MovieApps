@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class GenreViewModel @Inject constructor(
     private val getListGenreUseCase: GetListGenreUseCase
-): ViewModel(){
+) : ViewModel() {
     private val _genreData = MutableLiveData<List<Genre>>()
     val genreData: LiveData<List<Genre>>
         get() = _genreData
@@ -22,20 +22,31 @@ class GenreViewModel @Inject constructor(
     val loading: LiveData<Boolean>
         get() = _isLoading
 
+    private val _isError = MutableLiveData<Boolean>()
+    val Error: LiveData<Boolean>
+        get() = _isError
+
     init {
         _isLoading.postValue(true)
+        _isError.postValue(false)
     }
 
     fun setGenreData() = viewModelScope.launch {
-        _isLoading.postValue(true)
-        val response = getListGenreUseCase()
 
-        if (response.isSuccessful && response.body()?.genres != null) {
-            _genreData.postValue(response.body()!!.genres?.filterNotNull())
-        } else {
-            _genreData.postValue(emptyList())
+        try {
+            _isLoading.postValue(true)
+            val response = getListGenreUseCase()
+            if (response.isSuccessful && response.body()?.genres != null) {
+                response.body()?.genres?.let {
+                    _isError.postValue(false)
+                    _genreData.postValue(it.filterNotNull())
+                }
+            }
+            _isLoading.postValue(false)
+        } catch (e: Exception) {
+            _isLoading.postValue(false)
+            _isError.postValue(true)
         }
-
-        _isLoading.postValue(false)
     }
+
 }

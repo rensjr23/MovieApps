@@ -11,7 +11,6 @@ import com.example.movieapps.data.dto.ReviewResponse
 import com.example.movieapps.databinding.ItemReviewBinding
 
 class ReviewMovieAdapter(
-    private val context: Context,
     private val listReview: List<ResultsItem>
 ) : RecyclerView.Adapter<ReviewMovieAdapter.ReviewMovieViewHolder>() {
     inner class ReviewMovieViewHolder(val binding: ItemReviewBinding) :
@@ -20,7 +19,7 @@ class ReviewMovieAdapter(
             if (data.authorDetails?.avatarPath == null) {
                 binding.ivReview.setImageResource(R.drawable.ic_user_profil)
             } else {
-                Glide.with(context)
+                Glide.with(itemView)
                     .load("https://image.tmdb.org/t/p/w500/" + data.authorDetails.avatarPath)
                     .error(R.drawable.ic_error)
                     .into(binding.ivReview)

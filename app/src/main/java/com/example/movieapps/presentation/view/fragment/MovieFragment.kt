@@ -27,8 +27,24 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
     }
 
     override fun setupView() {
+        setupSuccess()
+        setupError()
+        observeViewModel()
+        binding.btnReload.setOnClickListener {
+            binding.btnReload.visibility = View.GONE
+            setupView()
+
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.movieData.observe(viewLifecycleOwner) {
+            setupViewMovie(it)
+        }
+    }
+    private fun setupSuccess(){
         viewModel.apply {
-            loading.observe(viewLifecycleOwner){
+            loading.observe(viewLifecycleOwner) {
                 setLoading(it)
             }
             getPassedGenreId()?.let {
@@ -37,12 +53,18 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
                 )
             }
         }
-        observeViewModel()
     }
-
-    private fun observeViewModel() {
-        viewModel.movieData.observe(viewLifecycleOwner) {
-            setupViewMovie(it)
+    private fun setupError(){
+        viewModel.Error.observe(viewLifecycleOwner){
+            if (it){
+                binding.btnReload.visibility = View.VISIBLE
+                binding.tvTitlePage.visibility = View.GONE
+                binding.componentMovie.gridMovie.visibility = View.GONE
+            }else{
+                binding.btnReload.visibility = View.GONE
+                binding.tvTitlePage.visibility = View.VISIBLE
+                binding.componentMovie.gridMovie.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -51,7 +73,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
     }
 
     private fun setupViewMovie(data: List<Movie>) {
-        _movieAdapter = MovieAdapter(requireContext(), data) { id->
+        _movieAdapter = MovieAdapter(data) { id->
             val bundle = bundleOf("movieId" to id)
             val action = MovieFragmentDirections.actionMovieFragmentToMovieDetailsFragment().actionId
             findNavController().navigate(action, bundle)

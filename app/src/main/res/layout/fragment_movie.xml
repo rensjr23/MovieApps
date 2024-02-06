@@ -9,6 +9,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <Button
+            android:id="@+id/btnReload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Reload"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/loSplash"
             android:layout_width="90dp"
@@ -26,7 +38,7 @@
             android:textAlignment="center"
             android:textSize="20dp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/btnReload" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"

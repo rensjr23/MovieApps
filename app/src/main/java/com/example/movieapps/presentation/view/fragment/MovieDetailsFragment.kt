@@ -65,12 +65,12 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
     }
 
     private fun setupViewActor(data: List<CastItem>) {
-        _actorMovieAdapter = ActorMovieAdapter(requireContext(), data)
+        _actorMovieAdapter = ActorMovieAdapter(data)
         binding.rvMovieImages.adapter = _actorMovieAdapter
     }
 
     private fun setupReview(data: List<ResultsItem>) {
-        _reviewMovieAdapter = ReviewMovieAdapter(requireContext(), data)
+        _reviewMovieAdapter = ReviewMovieAdapter(data)
         binding.rvReview.adapter = _reviewMovieAdapter
     }
 
