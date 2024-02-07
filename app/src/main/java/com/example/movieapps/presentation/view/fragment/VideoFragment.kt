@@ -1,17 +1,19 @@
 package com.example.movieapps.presentation.view.fragment
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.movieapps.databinding.FragmentVideoBinding
 import com.example.movieapps.presentation.base.BaseFragment
 import com.example.movieapps.presentation.view.viewmodel.VideoMovieViewModel
+import com.example.movieapps.utils.DataReloadable
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class VideoFragment : BaseFragment<FragmentVideoBinding>() {
+class VideoFragment : BaseFragment<FragmentVideoBinding>(), DataReloadable {
     private val viewModel:VideoMovieViewModel by viewModels()
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -26,6 +28,7 @@ class VideoFragment : BaseFragment<FragmentVideoBinding>() {
                 setVideoMovie(it)
             }
         }
+        setupError()
         observeViewModel()
     }
     private fun getPassedGenreId(): Int? {
@@ -45,6 +48,21 @@ class VideoFragment : BaseFragment<FragmentVideoBinding>() {
             }
 
         }
+    }
+    private fun setupError(){
+        viewModel.Error.observe(viewLifecycleOwner){
+            if (it){
+                binding.tvReload.visibility = View.VISIBLE
+                binding.youtubeVideo.visibility = View.GONE
+            }else{
+                binding.tvReload.visibility = View.GONE
+                binding.youtubeVideo.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    override fun reloadData() {
+        setupView()
     }
 
 }

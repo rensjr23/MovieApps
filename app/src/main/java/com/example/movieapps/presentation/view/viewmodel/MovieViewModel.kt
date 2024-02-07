@@ -40,8 +40,6 @@ class MovieViewModel @Inject constructor(
                 response.body()?.results?.let {
                     _movieData.postValue(it.filterNotNull())
                 }
-            } else {
-                _movieData.postValue(emptyList())
             }
             _isError.postValue(false)
             _isLoading.postValue(false)

@@ -43,25 +43,31 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     fun setMovieDetailsData(movieId: Int) = viewModelScope.launch {
+        _isError.postValue(false)
         _isLoading.postValue(true)
+        try {
 
-        val resDetails = getMovieDetailsUseCase(movieId)
-        val resActor = getActorMovieUseCase(movieId)
-        val resReview = getReviewMovieUseCase(movieId)
+            val resDetails = getMovieDetailsUseCase(movieId)
+            val resActor = getActorMovieUseCase(movieId)
+            val resReview = getReviewMovieUseCase(movieId)
 
-        if (resActor.isSuccessful && resActor.body()?.cast != null) {
-            resActor.body()?.cast?.let {
-                _actorMovieData.postValue(it.filterNotNull())
+            if (resActor.isSuccessful && resActor.body()?.cast != null) {
+                resActor.body()?.cast?.let {
+                    _actorMovieData.postValue(it.filterNotNull())
+                }
             }
-        }
-        if (resReview.isSuccessful && resReview.body()?.results != null) {
-            resReview.body()?.results?.let {
-                _reviewMovieData.postValue(it.filterNotNull())
+            if (resReview.isSuccessful && resReview.body()?.results != null) {
+                resReview.body()?.results?.let {
+                    _reviewMovieData.postValue(it.filterNotNull())
+                }
             }
+            if (resDetails.isSuccessful && resDetails.body()?.genres != null) {
+                _movieDetailsData.postValue(resDetails.body())
+            }
+            _isLoading.postValue(false)
+        }catch (e: Exception) {
+            _isLoading.postValue(false)
+            _isError.postValue(true)
         }
-        if (resDetails.isSuccessful && resDetails.body()?.genres != null) {
-            _movieDetailsData.postValue(resDetails.body())
-        }
-        _isLoading.postValue(false)
     }
 }

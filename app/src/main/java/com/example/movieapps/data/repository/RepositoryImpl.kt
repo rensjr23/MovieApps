@@ -2,13 +2,13 @@ package com.example.movieapps.data.repository
 
 import com.example.movieapps.data.datasource.RemoteDataSource
 import com.example.movieapps.data.dto.ActorMovieResponse
-import com.example.movieapps.domain.repository.Repository
 import com.example.movieapps.data.dto.Genres
 import com.example.movieapps.data.dto.MovieDetailsResponse
 import com.example.movieapps.data.dto.Movies
 import com.example.movieapps.data.dto.ReviewResponse
 import com.example.movieapps.data.dto.SearchResponse
 import com.example.movieapps.data.dto.VideoResponse
+import com.example.movieapps.domain.repository.Repository
 import retrofit2.Response
 import javax.inject.Inject
 

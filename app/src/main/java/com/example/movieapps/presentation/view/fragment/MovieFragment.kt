@@ -13,10 +13,11 @@ import com.example.movieapps.databinding.FragmentMovieBinding
 import com.example.movieapps.presentation.adapter.MovieAdapter
 import com.example.movieapps.presentation.base.BaseFragment
 import com.example.movieapps.presentation.view.viewmodel.MovieViewModel
+import com.example.movieapps.utils.DataReloadable
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MovieFragment : BaseFragment<FragmentMovieBinding>() {
+class MovieFragment : BaseFragment<FragmentMovieBinding>(), DataReloadable {
     private val viewModel: MovieViewModel by viewModels()
     private var _movieAdapter: MovieAdapter? = null
     override fun inflateBinding(
@@ -30,11 +31,6 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
         setupSuccess()
         setupError()
         observeViewModel()
-        binding.btnReload.setOnClickListener {
-            binding.btnReload.visibility = View.GONE
-            setupView()
-
-        }
     }
 
     private fun observeViewModel() {
@@ -57,11 +53,11 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
     private fun setupError(){
         viewModel.Error.observe(viewLifecycleOwner){
             if (it){
-                binding.btnReload.visibility = View.VISIBLE
+                binding.tvReload.visibility = View.VISIBLE
                 binding.tvTitlePage.visibility = View.GONE
                 binding.componentMovie.gridMovie.visibility = View.GONE
             }else{
-                binding.btnReload.visibility = View.GONE
+                binding.tvReload.visibility = View.GONE
                 binding.tvTitlePage.visibility = View.VISIBLE
                 binding.componentMovie.gridMovie.visibility = View.VISIBLE
             }
@@ -91,6 +87,10 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
             repeatCount = LottieDrawable.INFINITE
             playAnimation()
         }
+    }
+
+    override fun reloadData() {
+        setupView()
     }
 
 }

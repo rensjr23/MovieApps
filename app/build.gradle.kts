@@ -77,14 +77,13 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
     //nav component
-//    implementation ("androidx.navigation:navigation-fragment-ktx:2.3.5")
-//    implementation ("androidx.navigation:navigation-ui-ktx:2.3.5")
-    val nav_version = "2.7.6"       // This is nav dependencies for change the image (IT WORKS JUST move to other fragment then back again)
+    val nav_version = "2.7.6"
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
-//    kapt ("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
     //    android youtube player
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28")
+    //Swipe Refresh
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
 }

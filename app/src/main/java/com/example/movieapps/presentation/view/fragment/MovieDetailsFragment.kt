@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.lottie.LottieDrawable
 import com.bumptech.glide.Glide
 import com.example.movieapps.R
@@ -18,6 +18,7 @@ import com.example.movieapps.presentation.adapter.ActorMovieAdapter
 import com.example.movieapps.presentation.adapter.ReviewMovieAdapter
 import com.example.movieapps.presentation.base.BaseFragment
 import com.example.movieapps.presentation.view.viewmodel.MovieDetailsViewModel
+import com.example.movieapps.utils.DataReloadable
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -25,10 +26,11 @@ import kotlin.math.ln
 import kotlin.math.pow
 
 @AndroidEntryPoint
-class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
+class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>(), DataReloadable {
     private val viewModel: MovieDetailsViewModel by viewModels()
     private var _actorMovieAdapter: ActorMovieAdapter? = null
     private var _reviewMovieAdapter: ReviewMovieAdapter? = null
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -37,6 +39,15 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
     }
 
     override fun setupView() {
+        setupSuccess()
+        setupError()
+        observeViewModel()
+        binding.ivBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
+    private fun setupSuccess() {
         viewModel.apply {
             loading.observe(viewLifecycleOwner) {
                 setLoading(it)
@@ -45,7 +56,6 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
                 setMovieDetailsData(it)
             }
         }
-        observeViewModel()
     }
 
     private fun observeViewModel() {
@@ -57,6 +67,17 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
         }
         viewModel.reviewMovieData.observe(viewLifecycleOwner) {
             setupReview(it)
+        }
+    }
+    private fun setupError(){
+        viewModel.Error.observe(viewLifecycleOwner){
+            if (it){
+                binding.tvReload.visibility = View.VISIBLE
+                binding.clDetails.visibility = View.GONE
+            }else{
+                binding.tvReload.visibility = View.GONE
+                binding.clDetails.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -133,4 +154,9 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
             playAnimation()
         }
     }
+
+    override fun reloadData() {
+        setupView()
+    }
+
 }

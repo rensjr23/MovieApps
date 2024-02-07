@@ -19,12 +19,13 @@ import com.example.movieapps.presentation.adapter.SearchMovieAdapter
 import com.example.movieapps.presentation.base.BaseFragment
 import com.example.movieapps.presentation.view.viewmodel.MovieViewModel
 import com.example.movieapps.presentation.view.viewmodel.SearchMovieViewModel
+import com.example.movieapps.utils.DataReloadable
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchFragment : BaseFragment<FragmentSearchBinding>() {
+class SearchFragment : BaseFragment<FragmentSearchBinding>(), DataReloadable {
     private val viewModel: SearchMovieViewModel by viewModels()
     private var _searchMovieAdapter: SearchMovieAdapter? = null
     override fun inflateBinding(
@@ -44,12 +45,24 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 }
             }
         }
+        setupError()
         observeViewModel()
     }
 
     private fun observeViewModel() {
         viewModel.searchMovieData.observe(viewLifecycleOwner) {
             setupViewSearchMovie(it)
+        }
+    }
+    private fun setupError(){
+        viewModel.Error.observe(viewLifecycleOwner){
+            if (it){
+                binding.tvReload.visibility = View.VISIBLE
+                binding.rvMovieResult.visibility = View.GONE
+            }else{
+                binding.tvReload.visibility = View.GONE
+                binding.rvMovieResult.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -61,6 +74,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             findNavController().navigate(action, bundle)
         }
         binding.rvMovieResult.adapter = _searchMovieAdapter
+    }
+
+    override fun reloadData() {
+        setupView()
     }
 
 }
