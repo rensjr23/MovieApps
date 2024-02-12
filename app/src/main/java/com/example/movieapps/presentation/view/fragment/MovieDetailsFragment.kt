@@ -22,7 +22,6 @@ import com.example.movieapps.presentation.view.viewmodel.MovieDetailsViewModel
 import com.example.movieapps.utils.DataReloadable
 import com.example.movieapps.utils.setGone
 import com.example.movieapps.utils.setVisible
-import com.example.movieapps.utils.showIf
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
