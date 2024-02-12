@@ -15,6 +15,8 @@ import com.example.movieapps.presentation.adapter.GenreAdapter
 import com.example.movieapps.presentation.base.BaseFragment
 import com.example.movieapps.presentation.view.viewmodel.GenreViewModel
 import com.example.movieapps.utils.DataReloadable
+import com.example.movieapps.utils.setGone
+import com.example.movieapps.utils.setVisible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -59,13 +61,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), DataReloadable {
     private fun setupError(){
         viewModel.Error.observe(viewLifecycleOwner){
             if (it){
-                binding.tvReload.visibility = View.VISIBLE
-                binding.tvTitle.visibility = View.GONE
-                binding.componentGenre.gridGenre.visibility = View.GONE
+                binding.tvReload.setVisible()
+                binding.tvTitle.setGone()
+                binding.componentGenre.gridGenre.setGone()
             }else{
-                binding.tvReload.visibility = View.GONE
-                binding.tvTitle.visibility = View.VISIBLE
-                binding.componentGenre.gridGenre.visibility = View.VISIBLE
+                binding.tvReload.setGone()
+                binding.tvTitle.setVisible()
+                binding.componentGenre.gridGenre.setVisible()
             }
         }
     }

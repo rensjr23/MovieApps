@@ -45,23 +45,15 @@
             app:layout_constraintTop_toBottomOf="@+id/tvReload"
             tools:text="Genre Action" />
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitlePage">
-
             <LinearLayout
+                app:layout_constraintTop_toBottomOf="@+id/tvTitlePage"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <include
                     android:id="@+id/componentMovie"
                     layout="@layout/component_movie" />
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

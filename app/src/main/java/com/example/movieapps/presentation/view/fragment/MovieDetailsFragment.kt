@@ -1,5 +1,6 @@
 package com.example.movieapps.presentation.view.fragment
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,10 @@ import com.example.movieapps.presentation.adapter.ReviewMovieAdapter
 import com.example.movieapps.presentation.base.BaseFragment
 import com.example.movieapps.presentation.view.viewmodel.MovieDetailsViewModel
 import com.example.movieapps.utils.DataReloadable
+import com.example.movieapps.utils.setGone
+import com.example.movieapps.utils.setVisible
+import com.example.movieapps.utils.showIf
+import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -45,6 +50,7 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>(), DataRe
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
         }
+        setupSwipeRefreshException()
     }
 
     private fun setupSuccess() {
@@ -54,6 +60,7 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>(), DataRe
             }
             getPassedGenreId()?.let {
                 setMovieDetailsData(it)
+                Log.d("Rens", it.toString())
             }
         }
     }
@@ -72,11 +79,11 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>(), DataRe
     private fun setupError(){
         viewModel.Error.observe(viewLifecycleOwner){
             if (it){
-                binding.tvReload.visibility = View.VISIBLE
-                binding.clDetails.visibility = View.GONE
+                binding.tvReload.setVisible()
+                binding.clDetails.setGone()
             }else{
-                binding.tvReload.visibility = View.GONE
-                binding.clDetails.visibility = View.VISIBLE
+                binding.tvReload.setGone()
+                binding.clDetails.setVisible()
             }
         }
     }
@@ -157,6 +164,16 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>(), DataRe
 
     override fun reloadData() {
         setupView()
+    }
+    private fun setupSwipeRefreshException(){
+        val swipelayout:SwipeRefreshLayout = requireActivity().findViewById(R.id.swipeRefreshLayout)
+        binding.appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (verticalOffset < -1) {
+                swipelayout.isEnabled = false
+            } else {
+                swipelayout.isEnabled = true
+            }
+        })
     }
 
 }

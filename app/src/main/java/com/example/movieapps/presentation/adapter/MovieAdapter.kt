@@ -3,6 +3,8 @@ package com.example.movieapps.presentation.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movieapps.R
@@ -13,9 +15,8 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
 class MovieAdapter(
-    private val listMovie: List<Movie>,
     private val onClickNav: (movieId: Int) -> Unit
-) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+) : PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(DIFF_CALLBACK) {
 
     inner class MovieViewHolder(val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -27,7 +28,9 @@ class MovieAdapter(
             binding.tvTitleMovie.text = data.title
             binding.tvYear.text = data.releaseDate?.toYear()
             binding.root.setOnClickListener {
-                data.id?.let { movieId -> onClickNav.invoke(movieId) }
+                data.id?.let { movieId ->
+                    onClickNav.invoke(movieId)
+                }
             }
             val decimalFormat = DecimalFormat("#.#")
             binding.tvRating.text = "${decimalFormat.format(data.voteAverage)}/10"
@@ -36,6 +39,9 @@ class MovieAdapter(
     }
 
     fun String.toYear(): String {
+        if (this.isNullOrEmpty()) {
+            return ""
+        }
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         val date = dateFormat.parse(this)
         val yearFormat = SimpleDateFormat("yyyy")
@@ -52,9 +58,22 @@ class MovieAdapter(
         )
     }
 
-    override fun getItemCount(): Int = listMovie.size
-
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(listMovie[position])
+        val data = getItem(position)
+        if (data != null) {
+            holder.bind(data)
+        }
+    }
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 }

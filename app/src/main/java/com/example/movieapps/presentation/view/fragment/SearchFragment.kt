@@ -20,6 +20,8 @@ import com.example.movieapps.presentation.base.BaseFragment
 import com.example.movieapps.presentation.view.viewmodel.MovieViewModel
 import com.example.movieapps.presentation.view.viewmodel.SearchMovieViewModel
 import com.example.movieapps.utils.DataReloadable
+import com.example.movieapps.utils.setGone
+import com.example.movieapps.utils.setVisible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -57,11 +59,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), DataReloadable {
     private fun setupError(){
         viewModel.Error.observe(viewLifecycleOwner){
             if (it){
-                binding.tvReload.visibility = View.VISIBLE
-                binding.rvMovieResult.visibility = View.GONE
+                binding.tvReload.setVisible()
+                binding.rvMovieResult.setGone()
             }else{
-                binding.tvReload.visibility = View.GONE
-                binding.rvMovieResult.visibility = View.VISIBLE
+                binding.tvReload.setGone()
+                binding.rvMovieResult.setVisible()
             }
         }
     }

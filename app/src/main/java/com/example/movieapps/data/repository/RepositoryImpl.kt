@@ -1,14 +1,16 @@
 package com.example.movieapps.data.repository
 
+import androidx.paging.PagingData
 import com.example.movieapps.data.datasource.RemoteDataSource
 import com.example.movieapps.data.dto.ActorMovieResponse
 import com.example.movieapps.data.dto.Genres
+import com.example.movieapps.data.dto.Movie
 import com.example.movieapps.data.dto.MovieDetailsResponse
-import com.example.movieapps.data.dto.Movies
 import com.example.movieapps.data.dto.ReviewResponse
 import com.example.movieapps.data.dto.SearchResponse
 import com.example.movieapps.data.dto.VideoResponse
 import com.example.movieapps.domain.repository.Repository
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -19,7 +21,7 @@ class RepositoryImpl @Inject constructor(
         return remoteDataSource.getListGenre()
     }
 
-    override suspend fun getListMovie(genre: Int): Response<Movies> {
+    override suspend fun getListMovie(genre: Int): Flow<PagingData<Movie>> {
         return remoteDataSource.getListMovie(genre)
     }
 

@@ -21,6 +21,7 @@ interface MovieAPI {
     @GET("discover/movie")
     suspend fun getListMovie(
         @Query("genre") genre: Int,
+        @Query("page") page: Int,
         @Query("api_key") apiKey: String = "5eb84100db044f614af0fed6ee89eb95"
     ): Response<Movies>
 
