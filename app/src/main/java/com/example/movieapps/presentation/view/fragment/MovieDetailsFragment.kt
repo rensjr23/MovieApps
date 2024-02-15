@@ -153,7 +153,7 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>(), DataRe
     }
 
     private fun setLoading(isLoading: Boolean) {
-        binding.loSplash.apply {
+        binding.loadingSplash.apply {
             visibility = if (isLoading) View.VISIBLE else View.GONE
             setAnimation(R.raw.lo_loadingnew)
             repeatCount = LottieDrawable.INFINITE
@@ -166,7 +166,7 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>(), DataRe
     }
     private fun setupSwipeRefreshException(){
         val swipelayout:SwipeRefreshLayout = requireActivity().findViewById(R.id.swipeRefreshLayout)
-        binding.appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+        binding.appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (verticalOffset < -1) {
                 swipelayout.isEnabled = false
             } else {

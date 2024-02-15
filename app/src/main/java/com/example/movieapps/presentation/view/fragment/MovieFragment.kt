@@ -95,7 +95,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(), DataReloadable {
     }
 
     private fun setLoading(isLoading: Boolean) {
-        binding.loSplash.apply {
+        binding.loadingSplash.apply {
             visibility = if (isLoading) View.VISIBLE else View.GONE
             setAnimation(R.raw.lo_loadingnew)
             repeatCount = LottieDrawable.INFINITE
