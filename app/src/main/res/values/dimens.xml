@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
+    <dimen name="text_size_extra_large">24sp</dimen>
+
+    <dimen name="margin_extra_extra_small">4dp</dimen>
+    <dimen name="margin_extra_small">10dp</dimen>
+    <dimen name="margin_small">12dp</dimen>
+    <dimen name="margin_medium">14dp</dimen>
+    <dimen name="margin_default">18dp</dimen>
+    <dimen name="margin_large">20dp</dimen>
+    <dimen name="margin_extra_large">25dp</dimen>
+
+    <dimen name="padding_extra_small">4dp</dimen>
+    <dimen name="padding_small">6dp</dimen>
+    <dimen name="padding_medium">12dp</dimen>
+    <dimen name="padding_large">14dp</dimen>
+    <dimen name="padding_extra_large">20dp</dimen>
+    <dimen name="padding_extra_extra_large">32dp</dimen>
+    <dimen name="padding_extra_extra_extra_large">60dp</dimen>
+
+    <dimen name="translation">-36dp</dimen>
+
+    <dimen name="elevation">5dp</dimen>
+
+    <dimen name="corner_radius_small">8dp</dimen>
+    <dimen name="corner_radius">15dp</dimen>
+
+    <dimen name="max_image">40dp</dimen>
+
+</resources>

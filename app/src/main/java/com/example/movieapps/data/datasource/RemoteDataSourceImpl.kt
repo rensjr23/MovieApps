@@ -21,8 +21,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class RemoteDataSourceImpl @Inject constructor(
-    private val api: MovieAPI,
-
+    private val api: MovieAPI
 ): RemoteDataSource {
     override suspend fun getListGenre(): Response<Genres> {
         return api.getListGenre()
@@ -32,13 +31,8 @@ class RemoteDataSourceImpl @Inject constructor(
         val factory = MoviePagingSource(api, genre)
         Log.d("Rens", genre.toString())
         return Pager(
-            config =
-            PagingConfig(
-                pageSize = 10, enablePlaceholders = false
-            ),
-            pagingSourceFactory = {
-                factory
-            }
+            config = PagingConfig(pageSize = 10, enablePlaceholders = false),
+            pagingSourceFactory = { factory }
         ).flow
     }
 

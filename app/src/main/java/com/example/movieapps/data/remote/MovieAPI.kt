@@ -55,4 +55,5 @@ interface MovieAPI {
         @Query("api_key") apiKey: String = "5eb84100db044f614af0fed6ee89eb95"
     ): Response<SearchResponse>
 
+
 }

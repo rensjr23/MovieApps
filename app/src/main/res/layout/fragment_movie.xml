@@ -11,22 +11,23 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tvReload"
+            android:id="@+id/tv_reload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
             android:text="Swipe For Refresh"
             android:textColor="#DC0C0C"
-            android:textSize="24dp"
+            android:textSize="@dimen/text_size_extra_large"
             android:textStyle="bold"
             android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/tv_title_page"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/loSplash"
+            android:id="@+id/loading_splash"
             android:layout_width="90dp"
             android:layout_height="90dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -35,25 +36,29 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvTitlePage"
+            android:id="@+id/tv_title_page"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
             android:textAlignment="center"
-            android:textSize="20dp"
+            android:textSize="@dimen/text_size_large"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/tvReload"
+            app:layout_constraintBottom_toTopOf="@id/ll_genre"
+            app:layout_constraintTop_toBottomOf="@id/tv_reload"
             tools:text="Genre Action" />
 
-            <LinearLayout
-                app:layout_constraintTop_toBottomOf="@+id/tvTitlePage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/ll_genre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_page">
 
-                <include
-                    android:id="@+id/componentMovie"
-                    layout="@layout/component_movie" />
-            </LinearLayout>
+            <include
+                android:id="@+id/component_movie"
+                layout="@layout/component_movie" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

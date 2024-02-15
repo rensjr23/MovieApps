@@ -3,30 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp"
+    android:padding="@dimen/padding_medium"
     android:clickable="true"
     android:focusable="true"
     >
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/btnGenre"
+        android:id="@+id/btn_genre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#DAC666"
-        app:cardCornerRadius="15dp"
+        android:backgroundTint="@color/gold"
+        app:cardCornerRadius="@dimen/corner_radius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tvGenre"
+            android:id="@+id/tv_genre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="12dp"
+            android:padding="@dimen/padding_medium"
             android:text="Genre"
             android:textAlignment="center"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_medium"
             android:textStyle="bold" />
 
     </androidx.cardview.widget.CardView>

@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="140dp"
     android:layout_height="140dp"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="18dp"
-    app:cardElevation="3dp">
+    android:layout_margin="@dimen/margin_extra_small"
+    app:cardCornerRadius="@dimen/corner_radius"
+    app:cardElevation="@dimen/elevation">
 
     <ImageView
-        android:id="@+id/ivImage"
+        android:id="@+id/iv_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"

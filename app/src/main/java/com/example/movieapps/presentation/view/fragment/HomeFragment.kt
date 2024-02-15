@@ -43,8 +43,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), DataReloadable {
     }
 
     private fun setupViewGenre(data: List<Genre>) {
-        _genreAdapter = GenreAdapter(data) {
-            val bundle = bundleOf("id" to it.id, "title" to it.name)
+        _genreAdapter = GenreAdapter(data) {genre->
+            val bundle = bundleOf("id" to genre.id, "title" to genre.name)
             val action = HomeFragmentDirections.actionHomeFragmentToMovieFragment().actionId
             findNavController().navigate(action, bundle)
         }
@@ -74,7 +74,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), DataReloadable {
 
 
     private fun setLoading(isLoading: Boolean) {
-        binding.loSplash.apply {
+        binding.loadingSplash.apply {
             visibility = if (isLoading) View.VISIBLE else View.GONE
             setAnimation(R.raw.lo_loadingnew)
             repeatCount = LottieDrawable.INFINITE

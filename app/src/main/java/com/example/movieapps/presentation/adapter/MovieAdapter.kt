@@ -59,9 +59,8 @@ class MovieAdapter(
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val data = getItem(position)
-        if (data != null) {
-            holder.bind(data)
+        getItem(position)?.let {
+            holder.bind(it)
         }
     }
 

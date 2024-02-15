@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
+    <color name="black_trans_20">#222222</color>
+    <color name="black_trans_60">#555555</color>
+    <color name="red">#E60C0C</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gold">#CFB53B</color>
     <color name="green">#00B0BC</color>

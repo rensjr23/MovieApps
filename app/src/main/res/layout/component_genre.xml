@@ -7,8 +7,10 @@
     android:layout_margin="8dp">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/gridGenre"
-        android:layout_width="match_parent"
+        android:id="@+id/grid_genre"
+        android:layout_width="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toTopOf="parent"

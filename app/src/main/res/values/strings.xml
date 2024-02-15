@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">movieapps</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="swipe_refresh">Swipe For Refresh</string>
+    <string name="genre_movie">Genre Movie</string>
+    <string name="actor">Actor</string>
+    <string name="search">Search by title</string>
+    <string name="not_found">Not Found</string>
 </resources>
