@@ -4,15 +4,15 @@ import com.google.gson.annotations.SerializedName
 
 data class Genres(
 
-	@field:SerializedName("genres")
+	@SerializedName("genres")
 	val genres: List<Genre?>? = null
 )
 
 data class Genre(
 
-	@field:SerializedName("name")
+	@SerializedName("name")
 	val name: String? = null,
 
-	@field:SerializedName("id")
+	@SerializedName("id")
 	val id: Int? = null
 )

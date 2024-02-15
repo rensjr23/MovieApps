@@ -4,42 +4,42 @@ import com.google.gson.annotations.SerializedName
 
 data class VideoResponse(
 
-	@field:SerializedName("id")
+	@SerializedName("id")
 	val id: Int? = null,
 
-	@field:SerializedName("results")
+	@SerializedName("results")
 	val results: List<Results?>? = null
 )
 
 data class Results(
 
-	@field:SerializedName("site")
+	@SerializedName("site")
 	val site: String? = null,
 
-	@field:SerializedName("size")
+	@SerializedName("size")
 	val size: Int? = null,
 
-	@field:SerializedName("iso_3166_1")
+	@SerializedName("iso_3166_1")
 	val iso31661: String? = null,
 
-	@field:SerializedName("name")
+	@SerializedName("name")
 	val name: String? = null,
 
-	@field:SerializedName("official")
+	@SerializedName("official")
 	val official: Boolean? = null,
 
-	@field:SerializedName("id")
+	@SerializedName("id")
 	val id: String? = null,
 
-	@field:SerializedName("type")
+	@SerializedName("type")
 	val type: String? = null,
 
-	@field:SerializedName("published_at")
+	@SerializedName("published_at")
 	val publishedAt: String? = null,
 
-	@field:SerializedName("iso_639_1")
+	@SerializedName("iso_639_1")
 	val iso6391: String? = null,
 
-	@field:SerializedName("key")
+	@SerializedName("key")
 	val key: String? = null
 )
